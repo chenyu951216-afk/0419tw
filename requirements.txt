@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+jinja2
+pandas
+numpy
+python-dotenv
+requests
+beautifulsoup4
+yfinance
+lxml
+html5lib

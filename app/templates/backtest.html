@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>正式回測摘要（含成本 / 滑價）</h1>
+<p class="muted">已納入手續費、證交稅、滑價。更新時間：{{ now_tw.strftime('%Y-%m-%d %H:%M:%S') }} UTC+8</p>
+<table>
+<thead><tr><th>代號</th><th>名稱</th><th>策略</th><th>持有窗</th><th>交易次數</th><th>勝率</th><th>平均報酬</th><th>最大回撤</th><th>PF</th></tr></thead>
+<tbody>
+{% for s in rows %}
+<tr>
+<td>{{ s.stock_id }}</td>
+<td>{{ s.name }}</td>
+<td>{{ s.best_strategy }}</td>
+<td>{{ s.best_window }}</td>
+<td>{{ s.trades }}</td>
+<td>{{ s.formal_winrate }}%</td>
+<td>{{ s.avg_return }}%</td>
+<td>{{ s.max_drawdown }}%</td>
+<td>{{ s.profit_factor }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>寶藏股 / 長期低估機會</h1>
+<p class="muted">這一格是偏長期，不是短線衝刺股。更新時間：{{ now_tw.strftime('%Y-%m-%d %H:%M:%S') }} UTC+8</p>
+<table>
+<thead><tr><th>代號</th><th>名稱</th><th>寶藏分</th><th>估值</th><th>品質/成長</th><th>股利/現金流</th><th>Thesis</th><th>理由</th></tr></thead>
+<tbody>
+{% for s in rows %}
+<tr>
+<td>{{ s.stock_id }}</td>
+<td>{{ s.name }}</td>
+<td>{{ s.treasure_score }}</td>
+<td>DCF {{ s.dcf_value_per_share }} / 現價 {{ s.last_close }}<br>安全邊際 {{ s.dcf_margin_of_safety }}%<br>EV/EBITDA {{ s.ev_ebitda }} ({{ s.ev_ebitda_label }})</td>
+<td>ROE {{ s.roe }}% / 毛利 {{ s.gross_margin }}%<br>3Y CAGR {{ s.revenue_cagr_3y }}%<br>多季 {{ s.quarterly_trend_score }} / 多年 {{ s.financial_trend_score }}</td>
+<td>FCF正值 {{ s.fcf_positive_years }} 年<br>配息 {{ s.dividend_years }} 年 / 穩定 {{ s.dividend_label }}<br>覆蓋率 {{ s.dividend_cover_ratio }}</td>
+<td>{{ s.thesis_summary }}<br><span class="small">{{ s.thesis_conclusion }}</span></td>
+<td>{{ " / ".join(s.treasure_reasons) }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

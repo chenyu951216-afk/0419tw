@@ -1,0 +1,27 @@
+
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>TW Stock Bot v13 财報強化</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">TW Stock Bot v14 長線估值版</div>
+    <a href="/">Dashboard</a>
+    <a href="/ranking">排行榜</a>
+    <a href="/treasure">寶藏股</a>
+    <a href="/backtest">回測摘要</a>
+    <a href="/thesis">長期 Thesis</a>
+    <a href="/import-tool">匯入工具</a>
+    <div class="hint">時間統一：UTC+8 / Asia-Taipei<br>資料模式：Stable，禁用逐筆即時<br>支援價格與財報批次匯入、自動掃描
+    <br>長線模組：DCF / EV-EBITDA / 股利穩定度</div>
+  </aside>
+  <main class="main">
+    {% block content %}{% endblock %}
+  </main>
+</div>
+</body>
+</html>

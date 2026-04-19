@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>短線排行榜</h1>
+<p class="muted">更新時間：{{ now_tw.strftime('%Y-%m-%d %H:%M:%S') }} UTC+8</p>
+<table>
+<thead><tr><th>名次</th><th>代號</th><th>名稱</th><th>產業</th><th>總分</th><th>最佳策略</th><th>勝率</th><th>均報酬</th><th>回踩</th><th>追價</th><th>止損</th></tr></thead>
+<tbody>
+{% for s in rows %}
+<tr>
+<td>{{ loop.index }}</td>
+<td>{{ s.stock_id }}</td>
+<td>{{ s.name }}</td>
+<td>{{ s.industry }}</td>
+<td>{{ s.total_score }}</td>
+<td>{{ s.best_strategy }}/{{ s.best_window }}天</td>
+<td>{{ s.formal_winrate }}%</td>
+<td>{{ s.avg_return }}%</td>
+<td>{{ s.pullback_entry }}</td>
+<td>{{ s.breakout_entry }}</td>
+<td>{{ s.stop_loss }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

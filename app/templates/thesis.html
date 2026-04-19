@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>長期 Thesis 報表</h1>
+<p class="muted">更新時間：{{ now_tw.strftime('%Y-%m-%d %H:%M:%S') }} UTC+8。這一頁專門看長期低估與品質改善，不用來做 1-10 天短線。</p>
+{% for s in rows %}
+<div class="card thesis-card">
+  <div class="code">{{ s.treasure_rank }}. {{ s.stock_id }} {{ s.name }} <span class="industry">{{ s.industry }}</span></div>
+  <div class="score-row">
+    <span class="pill">寶藏分 {{ s.treasure_score }}</span>
+    <span class="pill">DCF 安全邊際 {{ s.dcf_margin_of_safety }}%</span>
+    <span class="pill">EV/EBITDA {{ s.ev_ebitda }} ({{ s.ev_ebitda_label }})</span>
+    <span class="pill">股利穩定 {{ s.dividend_label }}</span>
+  </div>
+  <div class="grid two-col">
+    <div>
+      <h3>估值</h3>
+      <ul>
+        <li>內在價值：{{ s.dcf_value_per_share }}</li>
+        <li>現價：{{ s.last_close }}</li>
+        <li>安全邊際：{{ s.dcf_margin_of_safety }}%</li>
+        <li>EV / EBITDA：{{ s.ev_ebitda }}</li>
+      </ul>
+      <h3>成長與品質</h3>
+      <ul>
+        <li>ROE：{{ s.roe }}%</li>
+        <li>毛利率：{{ s.gross_margin }}%</li>
+        <li>3Y 營收 CAGR：{{ s.revenue_cagr_3y }}%</li>
+        <li>多季趨勢分：{{ s.quarterly_trend_score }}</li>
+        <li>多年財務趨勢分：{{ s.financial_trend_score }}</li>
+      </ul>
+    </div>
+    <div>
+      <h3>現金流與股利</h3>
+      <ul>
+        <li>FCF 正值：{{ s.fcf_positive_years }} 年</li>
+        <li>OCF 正值：{{ s.ocf_positive_years }} 年</li>
+        <li>平均 FCF 率：{{ s.avg_fcf_margin }}%</li>
+        <li>配息年數：{{ s.dividend_years }} 年</li>
+        <li>配息成長率：{{ s.dividend_growth_rate }}%</li>
+        <li>股利覆蓋率：{{ s.dividend_cover_ratio }}</li>
+        <li>股利穩定分：{{ s.dividend_stability_score }}</li>
+      </ul>
+      <h3>結論</h3>
+      <div class="banner small-banner">{{ s.thesis_summary }}</div>
+      <div class="small"><strong>結論：</strong>{{ s.thesis_conclusion }}</div>
+    </div>
+  </div>
+  <div class="grid two-col">
+    <div>
+      <h3>投資邏輯</h3>
+      <ul>{% for b in s.thesis_bullets %}<li>{{ b }}</li>{% endfor %}</ul>
+    </div>
+    <div>
+      <h3>風險</h3>
+      <ul>{% for r in s.thesis_risks %}<li>{{ r }}</li>{% endfor %}{% for r in s.risk_flags %}<li>{{ r }}</li>{% endfor %}</ul>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
