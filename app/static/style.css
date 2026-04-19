@@ -1,0 +1,26 @@
+body { margin:0; font-family:Arial, sans-serif; background:#0b1020; color:#ecf2ff; }
+.layout { display:flex; min-height:100vh; }
+.sidebar { width:240px; background:#121a31; padding:24px; box-sizing:border-box; }
+.sidebar a { display:block; color:#dce8ff; padding:10px 0; text-decoration:none; }
+.brand { font-size:22px; font-weight:700; margin-bottom:20px; }
+.hint { margin-top:24px; color:#98a5c7; font-size:12px; line-height:1.5; }
+.main { flex:1; padding:28px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:16px; }
+.card { background:#151f3b; border-radius:18px; padding:18px; box-shadow:0 6px 18px rgba(0,0,0,0.25); }
+.card.treasure { border:1px solid #e0b64f; }
+.code { font-size:22px; font-weight:700; margin-bottom:6px; }
+.industry, .muted, .small { color:#9db0d3; }
+.score { font-size:18px; margin:8px 0; color:#7de2b0; }
+.banner { background:#203156; padding:12px 16px; border-radius:12px; margin-bottom:20px; }
+table { width:100%; border-collapse:collapse; background:#151f3b; border-radius:16px; overflow:hidden; }
+th, td { padding:12px 10px; border-bottom:1px solid #233258; text-align:left; font-size:14px; }
+th { background:#1a2850; }
+input { width:100%; padding:10px; margin:8px 0 14px; border-radius:10px; border:1px solid #39507f; background:#0f1730; color:white; }
+button { background:#58b0ff; color:#08111f; border:none; padding:12px 18px; border-radius:12px; cursor:pointer; font-weight:700; }
+pre { white-space:pre-wrap; word-break:break-word; }
+
+.score-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px;}
+.pill{background:#1d2b3a;color:#d3ecff;padding:4px 10px;border-radius:999px;font-size:13px;}
+.two-col{grid-template-columns:repeat(2,minmax(0,1fr));}
+.thesis-card h3{margin:10px 0 6px;}
+.small-banner{padding:10px 12px;}

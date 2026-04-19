@@ -1,0 +1,49 @@
+
+{% extends "base.html" %}
+{% block content %}
+{% if update_status %}<div class="card"><h2>更新狀態</h2><pre>{{ update_status }}</pre></div>{% endif %}
+<h1>今日短線前 5 名</h1>
+<p class="muted">更新時間：{{ now_tw.strftime('%Y-%m-%d %H:%M:%S') }} UTC+8</p>
+<div class="banner">{{ ai.summary }}</div>
+<div class="grid">
+{% for s in top5 %}
+<div class="card">
+  <div class="code">{{ s.rank }}. {{ s.stock_id }} {{ s.name }}</div>
+  <div class="industry">{{ s.industry }}</div>
+  <div class="score">總分 {{ s.total_score }}</div>
+  <ul>
+    <li>最佳策略：{{ s.best_strategy }} / {{ s.best_window }} 天</li>
+    <li>勝率：{{ s.formal_winrate }}%　PF：{{ s.profit_factor }}</li>
+    <li>回踩承接：{{ s.pullback_entry }}</li>
+    <li>轉強追價：{{ s.breakout_entry }}</li>
+    <li>止損：{{ s.stop_loss }}</li>
+    <li>TP1 / TP2 / TP3：{{ s.tp1 }} / {{ s.tp2 }} / {{ s.tp3 }}</li>
+  </ul>
+  <div class="small">{{ s.strategy_comment }}</div>
+</div>
+{% endfor %}
+</div>
+
+<h2>長期寶藏股 / 明顯低估觀察區</h2>
+<div class="grid">
+{% for s in treasure %}
+<div class="card treasure">
+  <div class="code">{{ s.stock_id }} {{ s.name }}</div>
+  <div class="score">寶藏分 {{ s.treasure_score }}</div>
+  <div>PE {{ s.pe }} / PB {{ s.pb }} / ROE {{ s.roe }}%</div>
+  <div>毛利率 {{ s.gross_margin }}% / 3Y CAGR {{ s.revenue_cagr_3y }}%</div>
+  <div>多季趨勢分 {{ s.quarterly_trend_score }} ｜ 財務趨勢分 {{ s.financial_trend_score }}</div>
+  <div>DCF {{ s.dcf_value_per_share }} ｜ 安全邊際 {{ s.dcf_margin_of_safety }}% ｜ EV/EBITDA {{ s.ev_ebitda }}</div>
+  <div>股利穩定 {{ s.dividend_label }} ｜ 配息 {{ s.dividend_years }} 年 ｜ 覆蓋率 {{ s.dividend_cover_ratio }}</div>
+  <div>FCF正值 {{ s.fcf_positive_years }} 年 ｜ 配息 {{ s.dividend_years }} 年 ｜ 平均FCF率 {{ s.avg_fcf_margin }}%</div>
+  <div class="small">{{ s.long_term_note }}</div>
+  <div class="small"><strong>Thesis：</strong>{{ s.thesis_summary }}</div>
+  <ul>
+    {% for r in s.treasure_reasons %}
+    <li>{{ r }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

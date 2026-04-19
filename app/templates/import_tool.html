@@ -1,0 +1,68 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h1>全台股資料匯入工具</h1>
+<p class="muted">價格資料格式：date, open, high, low, close, volume。財報格式：year, revenue, gross_margin, roe, eps, operating_cf, capex, free_cf, dividend。時間一律顯示 UTC+8。</p>
+<div class="grid-2">
+  <div class="card">
+    <h2>單檔價格匯入</h2>
+    <form method="post">
+      <label>CSV 檔案完整路徑</label>
+      <input type="text" name="filepath" placeholder="/Users/you/2330.csv" />
+      <label>股票代號</label>
+      <input type="text" name="symbol" placeholder="2330" />
+      <button type="submit">匯入價格資料</button>
+    </form>
+    {% if result %}<pre>{{ result }}</pre>{% endif %}
+  </div>
+  <div class="card">
+    <h2>批次價格匯入 / 自動掃描</h2>
+    <p>預設掃描資料夾：<code>{{ batch_dir }}</code></p>
+    <form method="post" action="/import-tool/batch">
+      <label>批次資料夾（可留空用預設）</label>
+      <input type="text" name="folderpath" placeholder="data/batch_import" />
+      <button type="submit">開始批次匯入</button>
+    </form>
+    {% if batch_result %}<pre>{{ batch_result }}</pre>{% endif %}
+  </div>
+</div>
+<div class="grid-2">
+  <div class="card">
+    <h2>單檔財報 / 現金流 / 股利匯入</h2>
+    <form method="post" action="/import-tool/financial">
+      <label>財報 CSV 檔案完整路徑</label>
+      <input type="text" name="financial_filepath" placeholder="/Users/you/2330_financial.csv" />
+      <label>股票代號</label>
+      <input type="text" name="financial_symbol" placeholder="2330" />
+      <button type="submit">匯入財報資料</button>
+    </form>
+    <p class="small">欄位：year, revenue, gross_margin, roe, eps, operating_cf, capex, free_cf, dividend</p>
+    {% if financial_result %}<pre>{{ financial_result }}</pre>{% endif %}
+  </div>
+  <div class="card">
+    <h2>批次財報匯入 / 自動掃描</h2>
+    <p>預設掃描資料夾：<code>{{ financial_batch_dir }}</code></p>
+    <form method="post" action="/import-tool/financial-batch">
+      <label>批次財報資料夾（可留空用預設）</label>
+      <input type="text" name="financial_folderpath" placeholder="data/financial_batch" />
+      <button type="submit">開始批次匯入財報</button>
+    </form>
+    {% if financial_batch_result %}<pre>{{ financial_batch_result }}</pre>{% endif %}
+  </div>
+</div>
+<div class="card">
+  <h2>目前已匯入代號</h2>
+  <div class="small">價格：{{ symbols | join(', ') }}</div>
+  <div class="small">財報：{{ financial_symbols | join(', ') }}</div>
+</div>
+
+<h2>真實資料自動更新</h2>
+<form method="post" action="/import-tool/refresh-all">
+  <label>限制更新檔數（建議 20~60；0 會套用系統上限）</label>
+  <input type="number" name="limit" value="20">
+  <label><input type="checkbox" name="force_full" value="true"> 強制全歷史重抓（較慢，較容易遇到限流）</label>
+  <button type="submit">背景抓真資料 / 財報 / 新聞 / 重算排名</button>
+</form>
+{% if refresh_result %}<pre>{{ refresh_result }}</pre>{% endif %}
+
+{% endblock %}
